@@ -1,156 +1,19 @@
-<!--<app-msg-sent ></app-msg-sent>-->
-<app-msg-receive></app-msg-receive>
-<!--<app-msg-sent></app-msg-sent>-->
-<app-msg-receive></app-msg-receive>
-<app-msg-receive></app-msg-receive>
-
-<div *ngFor="let it of ws.listMsg">
-  <app-msg-sent [msg]="it"></app-msg-sent>
+<div id="frame">
+  <div class="content">
+    <div class="messages">
+      <ul>
+<!--        <app-msg-sent ></app-msg-sent>-->
+<!--        <app-msg-receive></app-msg-receive>-->
+<!--        <app-msg-sent ></app-msg-sent>-->
+<!--        <app-msg-receive></app-msg-receive>-->
+<!--        <app-msg-sent ></app-msg-sent>-->
+<!--        <app-msg-receive></app-msg-receive>-->
+        <div *ngFor="let it of models.listMsg">
+          <app-msg-sent [msg]="it" *ngIf="it.memberId === 1"></app-msg-sent>
+          <app-msg-receive [msg]="it" *ngIf="it.memberId === 2"></app-msg-receive>
+        </div>
+      </ul>
+    </div>
+  </div>
+  <app-msg-write></app-msg-write>
 </div>
-
-
-
-<!--<div style="position: relative;z-index: 5;">-->
-<!--  <div style="height: calc(100vh); background-color: #0d6efd;">-->
-<!--    &lt;!&ndash;<div class="init-chat">&ndash;&gt;-->
-<!--    &lt;!&ndash;  <div class="bg-dash-color-1">&ndash;&gt;-->
-<!--    &lt;!&ndash;    sdfg&ndash;&gt;-->
-<!--    &lt;!&ndash;  </div>&ndash;&gt;-->
-<!--    &lt;!&ndash;</div>&ndash;&gt;-->
-<!--    <div class="container init-chat">-->
-<!--      <div class="row justify-content-center">-->
-<!--        <div class="">-->
-<!--          <div class="left_menubx">-->
-<!--            <div class="frame">-->
-<!--              <div class="sidepanel">-->
-<!--              </div>-->
-<!--              <div class="content">-->
-<!--                <div class="messages">-->
-<!--                  <ul>-->
-<!--                    <li class="sent">-->
-<!--                      <img src="http://emilcarlsson.se/assets/mikeross.png" alt="">-->
-<!--                      <p>How the hell am I supposed to get a jury to believe you when I am not even sure that I do?!</p>-->
-<!--                      <span class="msg_time">8:40 AM, Today</span>-->
-<!--                    </li>-->
-<!--                    <li class="replies">-->
-<!--                      <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="">-->
-<!--                      <p>When you're backed against the wall, break the god damn thing down.</p>-->
-<!--                      <span class="msg_time">8:40 AM, Today</span>-->
-<!--                    </li>-->
-<!--                    <li class="replies">-->
-<!--                      <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="">-->
-<!--                      <p>Excuses don't win championships.</p>-->
-<!--                      <span class="msg_time">8:40 AM, Today</span>-->
-<!--                    </li>-->
-<!--                    <li class="sent">-->
-<!--                      <img src="http://emilcarlsson.se/assets/mikeross.png" alt="">-->
-<!--                      <p>Oh yeah, did Michael Jordan tell you that?</p>-->
-<!--                      <span class="msg_time">8:40 AM, Today</span>-->
-<!--                    </li>-->
-<!--                    <li class="replies">-->
-<!--                      <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="">-->
-<!--                      <p>No, I told him that.</p>-->
-<!--                      <span class="msg_time">8:40 AM, Today</span>-->
-<!--                    </li>-->
-<!--                    <li class="replies">-->
-<!--                      <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="">-->
-<!--                      <p>What are your choices when someone puts a gun to your head?</p>-->
-<!--                      <span class="msg_time">8:40 AM, Today</span>-->
-<!--                    </li>-->
-<!--                    <li class="sent">-->
-<!--                      <img src="http://emilcarlsson.se/assets/mikeross.png" alt="">-->
-<!--                      <p>What are you talking about? You do what they say or they shoot you.</p>-->
-<!--                      <span class="msg_time">8:40 AM, Today</span>-->
-<!--                    </li>-->
-<!--                    <li class="replies">-->
-<!--                      <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="">-->
-<!--                      <p>Wrong. You take the gun, or you pull out a bigger one. Or, you call their bluff. Or, you do any one of a hundred and forty six other things.</p>-->
-<!--                      <span class="msg_time">8:40 AM, Today</span>-->
-<!--                    </li>-->
-<!--                  </ul>-->
-<!--                </div>-->
-<!--                <div class="message-input">-->
-<!--                  <div class="wrap">-->
-<!--                    <input type="text" placeholder="Write your message...">-->
-<!--                    <i class="fa fa-paperclip attachment" aria-hidden="true"></i>-->
-<!--                    <button class="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
-<!--&lt;!&ndash;&lt;!&ndash;<div class="init-chat">&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;  <div class="bg-dash-color-1">&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;    sdfg&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;  </div>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;</div>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;<div class="container init-chat">&ndash;&gt;-->
-<!--&lt;!&ndash;  <div class="row justify-content-center">&ndash;&gt;-->
-<!--&lt;!&ndash;    <div class="">&ndash;&gt;-->
-<!--&lt;!&ndash;      <div class="left_menubx">&ndash;&gt;-->
-<!--&lt;!&ndash;        <div class="frame">&ndash;&gt;-->
-<!--&lt;!&ndash;          <div class="sidepanel">&ndash;&gt;-->
-<!--&lt;!&ndash;          </div>&ndash;&gt;-->
-<!--&lt;!&ndash;          <div class="content">&ndash;&gt;-->
-<!--&lt;!&ndash;            <div class="messages">&ndash;&gt;-->
-<!--&lt;!&ndash;              <ul>&ndash;&gt;-->
-<!--&lt;!&ndash;                <li class="sent">&ndash;&gt;-->
-<!--&lt;!&ndash;                  <img src="http://emilcarlsson.se/assets/mikeross.png" alt="">&ndash;&gt;-->
-<!--&lt;!&ndash;                  <p>How the hell am I supposed to get a jury to believe you when I am not even sure that I do?!</p>&ndash;&gt;-->
-<!--&lt;!&ndash;                  <span class="msg_time">8:40 AM, Today</span>&ndash;&gt;-->
-<!--&lt;!&ndash;                </li>&ndash;&gt;-->
-<!--&lt;!&ndash;                <li class="replies">&ndash;&gt;-->
-<!--&lt;!&ndash;                  <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="">&ndash;&gt;-->
-<!--&lt;!&ndash;                  <p>When you're backed against the wall, break the god damn thing down.</p>&ndash;&gt;-->
-<!--&lt;!&ndash;                  <span class="msg_time">8:40 AM, Today</span>&ndash;&gt;-->
-<!--&lt;!&ndash;                </li>&ndash;&gt;-->
-<!--&lt;!&ndash;                <li class="replies">&ndash;&gt;-->
-<!--&lt;!&ndash;                  <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="">&ndash;&gt;-->
-<!--&lt;!&ndash;                  <p>Excuses don't win championships.</p>&ndash;&gt;-->
-<!--&lt;!&ndash;                  <span class="msg_time">8:40 AM, Today</span>&ndash;&gt;-->
-<!--&lt;!&ndash;                </li>&ndash;&gt;-->
-<!--&lt;!&ndash;                <li class="sent">&ndash;&gt;-->
-<!--&lt;!&ndash;                  <img src="http://emilcarlsson.se/assets/mikeross.png" alt="">&ndash;&gt;-->
-<!--&lt;!&ndash;                  <p>Oh yeah, did Michael Jordan tell you that?</p>&ndash;&gt;-->
-<!--&lt;!&ndash;                  <span class="msg_time">8:40 AM, Today</span>&ndash;&gt;-->
-<!--&lt;!&ndash;                </li>&ndash;&gt;-->
-<!--&lt;!&ndash;                <li class="replies">&ndash;&gt;-->
-<!--&lt;!&ndash;                  <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="">&ndash;&gt;-->
-<!--&lt;!&ndash;                  <p>No, I told him that.</p>&ndash;&gt;-->
-<!--&lt;!&ndash;                  <span class="msg_time">8:40 AM, Today</span>&ndash;&gt;-->
-<!--&lt;!&ndash;                </li>&ndash;&gt;-->
-<!--&lt;!&ndash;                <li class="replies">&ndash;&gt;-->
-<!--&lt;!&ndash;                  <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="">&ndash;&gt;-->
-<!--&lt;!&ndash;                  <p>What are your choices when someone puts a gun to your head?</p>&ndash;&gt;-->
-<!--&lt;!&ndash;                  <span class="msg_time">8:40 AM, Today</span>&ndash;&gt;-->
-<!--&lt;!&ndash;                </li>&ndash;&gt;-->
-<!--&lt;!&ndash;                <li class="sent">&ndash;&gt;-->
-<!--&lt;!&ndash;                  <img src="http://emilcarlsson.se/assets/mikeross.png" alt="">&ndash;&gt;-->
-<!--&lt;!&ndash;                  <p>What are you talking about? You do what they say or they shoot you.</p>&ndash;&gt;-->
-<!--&lt;!&ndash;                  <span class="msg_time">8:40 AM, Today</span>&ndash;&gt;-->
-<!--&lt;!&ndash;                </li>&ndash;&gt;-->
-<!--&lt;!&ndash;                <li class="replies">&ndash;&gt;-->
-<!--&lt;!&ndash;                  <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="">&ndash;&gt;-->
-<!--&lt;!&ndash;                  <p>Wrong. You take the gun, or you pull out a bigger one. Or, you call their bluff. Or, you do any one of a hundred and forty six other things.</p>&ndash;&gt;-->
-<!--&lt;!&ndash;                  <span class="msg_time">8:40 AM, Today</span>&ndash;&gt;-->
-<!--&lt;!&ndash;                </li>&ndash;&gt;-->
-<!--&lt;!&ndash;              </ul>&ndash;&gt;-->
-<!--&lt;!&ndash;            </div>&ndash;&gt;-->
-<!--&lt;!&ndash;            <div class="message-input">&ndash;&gt;-->
-<!--&lt;!&ndash;              <div class="wrap">&ndash;&gt;-->
-<!--&lt;!&ndash;                <input type="text" placeholder="Write your message...">&ndash;&gt;-->
-<!--&lt;!&ndash;                <i class="fa fa-paperclip attachment" aria-hidden="true"></i>&ndash;&gt;-->
-<!--&lt;!&ndash;                <button class="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>&ndash;&gt;-->
-<!--&lt;!&ndash;              </div>&ndash;&gt;-->
-<!--&lt;!&ndash;            </div>&ndash;&gt;-->
-<!--&lt;!&ndash;          </div>&ndash;&gt;-->
-<!--&lt;!&ndash;        </div>&ndash;&gt;-->
-<!--&lt;!&ndash;      </div>&ndash;&gt;-->
-<!--&lt;!&ndash;    </div>&ndash;&gt;-->
-<!--&lt;!&ndash;  </div>&ndash;&gt;-->
-<!--&lt;!&ndash;</div>&ndash;&gt;-->
