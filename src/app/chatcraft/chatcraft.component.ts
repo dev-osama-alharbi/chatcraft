@@ -14,6 +14,8 @@ import {BrowserAnimationsModule, NoopAnimationsModule} from "@angular/platform-b
 import {BrowserModule} from "@angular/platform-browser";
 import {NgIf} from "@angular/common";
 import {WsService} from "../services/ws.service";
+import {ModelsService} from "../services/models.service";
+import {ApiService} from "../services/api.service";
 
 @Component({
   selector: 'app-chatcraft',
@@ -25,19 +27,12 @@ import {WsService} from "../services/ws.service";
     ComponentComponent,
     ExportComponent,
     RouterOutlet,
-    // NgIf,
-    // RouterLink,
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
     MatSidenavModule,
     NgIf,
     RouterLink,
-    // MatSidenavModule,
-    // NoopAnimationsModule
-    // BrowserAnimationsModule,
-    // BrowserModule,
-    // CommonModule
   ],
   templateUrl: './chatcraft.component.html',
   styleUrl: './chatcraft.component.css',
@@ -55,7 +50,9 @@ export class ChatcraftComponent implements OnInit{
 
   // @Output() listMsg: string[] = [];
 
-  constructor(private ws: WsService)
+  constructor(private ws: WsService,
+              private models:ModelsService,
+              private apiService:ApiService)
   {
 
   }
@@ -63,43 +60,21 @@ export class ChatcraftComponent implements OnInit{
   ngOnInit(): void {
     this._initHotKeyNavbar();
     this._pageView();
+    this.apiInit();
     this.wsInit();
+  }
+
+  apiInit(){
+    console.log("YYUU%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+    this.apiService.getAllMsg(1,this.models);
+    // this.models.addAllMsg(this.apiService.getAllMsg());
   }
 
   wsInit(){
     this.ws.connect(() => {
-
-      this.ws.subAddMsg(msg => {
-        this.ws.addMsg(msg);
-      });
-
-      this.ws.subAddTag(msg => {
-        this.ws.addMsg(msg);
-      });
-
-      this.ws.subEditTag(msg => {
-        this.ws.addMsg(msg);
-      });
-
-      this.ws.subDeleteTag(msg => {
-        this.ws.addMsg(msg);
-      });
-
-      this.ws.subLoginUser(msg => {
-        this.ws.addMsg(msg);
-      });
-
-      this.ws.subLogoutUser(msg => {
-        this.ws.addMsg(msg);
-      });
-
+      this.ws.subLsn(1,this.models);
     });
   }
-
-  // addMsg(msg: string){
-  //   this.listMsg.push(msg);
-  //   console.log("wswswswsws msg = "+msg);
-  // }
 
 
   _initHotKeyNavbar(){

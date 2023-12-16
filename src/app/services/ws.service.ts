@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import {Stomp} from "@stomp/stompjs";
 import SockJS from "sockjs-client";
+import {ApiResponse} from "../dto/api.response.dto";
+import {MsgDTO} from "../dto/msg.dto";
+import {ModelsService} from "./models.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class WsService {
-  listMsg: string[] = [];
   private stompClient : any;
   constructor() {
 
@@ -15,10 +17,6 @@ export class WsService {
 
 
 
-  addMsg(msg: string){
-    this.listMsg.push(msg);
-    console.log("wswswswsws msg = "+msg);
-  }
 
 
 // في خطا بحاول اصلحه
@@ -33,77 +31,24 @@ export class WsService {
   connect(callback: () => any){//
     this.stompClient.connect({}, () => {
       callback();
-      // this.stompClient.subscribe("/topic/chat.1.lsn.add_tag", (message:any) => {
-      //   const messageContent = JSON.parse(message.body);
-      //   console.log(messageContent);
-      // });
-      //
-      // this.stompClient.subscribe(`/topic/chat`, (message:any) => {
-      //   const messageContent = JSON.parse(message.body);
-      //   console.log(messageContent);
-      // });
     });
 
   }
 
-  subAddMsg(callback: (msg: string) => any){
-    this.stompClient.subscribe("/topic/chat.1.lsn.add_msg", (message:any) => {
-      const messageContent = message.body;
-      callback(messageContent);
+  subLsn(projectId: number,models:ModelsService){
+    this.stompClient.subscribe(`/topic/chat.${projectId}.lsn`, (message:any) => {
+      const body: ApiResponse = JSON.parse(message.body);
+      if(!body.hasErrors){
+        switch (body.type){
+          case "MSG_NEW":{
+            console.log("is it hi &&&&&& = "+(body.body as MsgDTO));
+            models.addMsg(body.body as MsgDTO);
+            // this.addMsg(JSON.parse(body.body) as MsgDTO);
+          }
+        }
+      }else{
+
+      }
     });
   }
-
-  subAddTag(callback: (msg: string) => any){
-    this.stompClient.subscribe("/topic/chat.1.lsn.add_tag", (message:any) => {
-      const messageContent = message.body;
-      callback(messageContent);
-    });
-  }
-
-  subEditTag(callback: (msg: string) => any){
-    this.stompClient.subscribe("/topic/chat.1.lsn.edit_tag", (message:any) => {
-      const messageContent = message.body;
-      callback(messageContent);
-    });
-  }
-
-  subDeleteTag(callback: (msg: string) => any){
-    this.stompClient.subscribe("/topic/chat.1.lsn.delete_tag", (message:any) => {
-      const messageContent = message.body;
-      callback(messageContent);
-    });
-  }
-
-  subLoginUser(callback: (msg: string) => any){
-    this.stompClient.subscribe("/topic/chat.1.lsn.login_user", (message:any) => {
-      const messageContent = message.body;
-      callback(messageContent);
-    });
-  }
-
-  subLogoutUser(callback: (msg: string) => any){
-    this.stompClient.subscribe("/topic/chat.1.lsn.logout_user", (message:any) => {
-      const messageContent = message.body;
-      callback(messageContent);
-    });
-  }
-
-
-
-  // sendOsama(){
-  //   this.stompClient.send(`/topic/send`, {}, `hi hi hi`);
-  // }
-  //
-  // joinRoom(roomId: string){
-  //   this.stompClient.connect({}, () => {
-  //     this.stompClient.subscribe(`/topic/${roomId}`, (message:any) => {
-  //       const messageContent = JSON.parse(message.body);
-  //       console.log(messageContent);
-  //     });
-  //   });
-  // }
-  //
-  // sendMessage(roomId:string, chatMessage:ChatMessage){
-  //   this.stompClient.send(`/app/chat/${roomId}`, {}, JSON.stringify(chatMessage));
-  // }
 }

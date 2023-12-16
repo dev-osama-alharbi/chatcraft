@@ -1,4 +1,5 @@
 import {Component, Input} from '@angular/core';
+import {MsgDTO} from "../../../dto/msg.dto";
 
 @Component({
   selector: 'app-msg-sent',
@@ -8,6 +9,6 @@ import {Component, Input} from '@angular/core';
   styleUrl: './msg-sent.component.css'
 })
 export class MsgSentComponent {
-  @Input() msg!: string;
+  @Input() msg!: MsgDTO;
 
 }

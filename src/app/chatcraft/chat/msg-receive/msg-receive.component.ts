@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {MsgDTO} from "../../../dto/msg.dto";
 
 @Component({
   selector: 'app-msg-receive',
@@ -8,5 +9,5 @@ import { Component } from '@angular/core';
   styleUrl: './msg-receive.component.css'
 })
 export class MsgReceiveComponent {
-
+  @Input() msg!: MsgDTO;
 }
