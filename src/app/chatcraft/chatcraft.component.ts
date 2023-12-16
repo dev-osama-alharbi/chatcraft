@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit, Output} from '@angular/core';
 import {ChatComponent} from "./chat/chat.component";
 import {DashboardComponent} from "./dashboard/dashboard.component";
 import {UsersComponent} from "./users/users.component";
@@ -13,6 +13,7 @@ import {MatSidenavModule} from "@angular/material/sidenav";
 import {BrowserAnimationsModule, NoopAnimationsModule} from "@angular/platform-browser/animations";
 import {BrowserModule} from "@angular/platform-browser";
 import {NgIf} from "@angular/common";
+import {WsService} from "../services/ws.service";
 
 @Component({
   selector: 'app-chatcraft',
@@ -52,10 +53,54 @@ export class ChatcraftComponent implements OnInit{
   navLinkEls = document.getElementsByClassName('nav__link');
   windowPathName = window.location.pathname;
 
+  // @Output() listMsg: string[] = [];
+
+  constructor(private ws: WsService)
+  {
+
+  }
+
   ngOnInit(): void {
     this._initHotKeyNavbar();
     this._pageView();
+    this.wsInit();
   }
+
+  wsInit(){
+    this.ws.connect(() => {
+
+      this.ws.subAddMsg(msg => {
+        this.ws.addMsg(msg);
+      });
+
+      this.ws.subAddTag(msg => {
+        this.ws.addMsg(msg);
+      });
+
+      this.ws.subEditTag(msg => {
+        this.ws.addMsg(msg);
+      });
+
+      this.ws.subDeleteTag(msg => {
+        this.ws.addMsg(msg);
+      });
+
+      this.ws.subLoginUser(msg => {
+        this.ws.addMsg(msg);
+      });
+
+      this.ws.subLogoutUser(msg => {
+        this.ws.addMsg(msg);
+      });
+
+    });
+  }
+
+  // addMsg(msg: string){
+  //   this.listMsg.push(msg);
+  //   console.log("wswswswsws msg = "+msg);
+  // }
+
 
   _initHotKeyNavbar(){
     console.log('navLinkEls '+this.navLinkEls.length)

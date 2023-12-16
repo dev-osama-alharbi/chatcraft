@@ -1,10 +1,12 @@
-<app-msg-sent ></app-msg-sent>
+<!--<app-msg-sent ></app-msg-sent>-->
 <app-msg-receive></app-msg-receive>
-<app-msg-sent></app-msg-sent>
+<!--<app-msg-sent></app-msg-sent>-->
 <app-msg-receive></app-msg-receive>
 <app-msg-receive></app-msg-receive>
 
-
+<div *ngFor="let it of ws.listMsg">
+  <app-msg-sent [msg]="it"></app-msg-sent>
+</div>
 
 
 
